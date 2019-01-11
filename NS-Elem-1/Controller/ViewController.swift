@@ -46,26 +46,70 @@ class ViewController: UIViewController {
     }
     
     func askQuestion(){
-        let numA = Int.random(in: 10000...1000000)
-        let numB = Int.random(in: 9...29)
-        let randomIndex = Int.random(in: 0...3)
+        let randomNumA = Double.random(in: 100...999)
+        let randomNumB = Int.random(in: 2...15)
+        let randomNumC = Int.random(in: 100...999)
+        let switchIndex = 6
+        var numA = 0.00
+        var numB = 0
         
-        switch randomIndex{
-        case 0:
-            questionLabel.text = "* \(numB)¹/₂% of \(numA)"
-            answerCorrect = (Double(numB)+0.5)/100 * Double(numA)
-        case 1:
-            questionLabel.text = "* \(numB)¹/₄% of \(numA)"
-            answerCorrect = (Double(numB)+0.25)/100 * Double(numA)
-        case 2:
-            questionLabel.text = "* \(numB)¹/₅% of \(numA)"
-            answerCorrect = (Double(numB)+0.2)/100 * Double(numA)
-        case 3:
-            questionLabel.text = "* \(numB)¹/₃% of \(numA)"
-            answerCorrect = (Double(numB)+0.33)/100 * Double(numA)
+        
+        switch switchIndex{
+        case 6:
+            numA = (1/6) * 100
+            numB = ((randomNumB * 6) * 1000) + randomNumC
+        case 7:
+            numA = (1/7) * 100
+            numB = ((randomNumB * 7) * 1000) + randomNumC
+        case 8:
+            numA = (1/8) * 100
+            numB = ((randomNumB * 8) * 1000) + randomNumC
+        case 9:
+            numA = (1/9) * 100
+            numB = ((randomNumB * 9) * 1000) + randomNumC
+        case 11:
+            numA = (1/11) * 100
+            numB = ((randomNumB * 11) * 1000) + randomNumC
         default:
-            questionLabel.text = "999"
-            answerCorrect = 999
+            numB = 999
+        }
+        
+        typealias Rational = (num : Int, den : Int)
+        func simplifyFrac(x0 : Double, withPrecision eps : Double = 1.0E-6) -> Rational {
+            var x = x0
+            var a = floor(x)
+            var (h1, k1, h, k) = (1, 0, Int(a), 1)
+            
+            while x - a > eps * Double(k) * Double(k) {
+                x = 1.0/(x - a)
+                a = floor(x)
+                (h1, k1, h, k) = (h, k, h1 + Int(a) * h, k1 + Int(a) * k)
+            }
+            return (h, k)
+        }
+        
+        let d = numA
+        let (wholePart, fractionalPart) = modf(d)
+        let numFWhole = (Int(wholePart))
+        
+        let answerCorrectSimplify = simplifyFrac(x0: fractionalPart)
+        let numF = answerCorrectSimplify.num
+        let denF = answerCorrectSimplify.den
+        
+        var questionLabel = ""
+        var answerCorrect = 0.00
+        let randomIndex = Int.random(in: 0...1)
+        switch randomIndex{
+        case 0: //00Foo of 00000000
+            questionLabel = "* \(numFWhole) \(numF)/\(denF)% of \(numB)"
+            answerCorrect = (numA * Double(numB))/100
+        case 1:
+            let numA2 = (numA * 1000000) + randomNumA
+            questionLabel = "* \(numA2) X \(randomNumC)"
+            answerCorrect = numA2 * Double(randomNumC)
+        default:
+            questionLabel = "999"
+        }
         }
     }
     
