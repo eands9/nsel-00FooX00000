@@ -46,10 +46,10 @@ class ViewController: UIViewController {
     }
     
     func askQuestion(){
-        let randomNumA = Double.random(in: 10...99)
+        let randomNumA = Double.random(in: 1...9)
         let randomNumB = Int.random(in: 2...15)
         let randomNumC = Int.random(in: 100...999)
-        let switchIndex = 6
+        let switchIndex = Int.random(in: 6...10)
         var numA = 0.00
         var numB = 0
         
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         case 9:
             numA = (1/9) * 100
             numB = ((randomNumB * 9) * 1000) + randomNumC
-        case 11:
+        case 10:
             numA = (1/11) * 100
             numB = ((randomNumB * 11) * 1000) + randomNumC
         default:
@@ -99,9 +99,9 @@ class ViewController: UIViewController {
         switch randomIndex{
         case 0: //00Foo of 00000000
             questionLabel.text = "* \(numFWhole) \(numF)/\(denF)% of \(numB)"
-            answerCorrect = (numA * Double(numB))/100
+            answerCorrect = round(((numA * Double(numB))/100)*100)/100
         case 1:
-            let numA2 = round(((numA * 10000) + randomNumA)*1)/1
+            let numA2 = round(((numA * 1000) + randomNumA)*1)/1
             questionLabel.text = "* \(numA2) X \(randomNumC)"
             answerCorrect = numA2 * Double(randomNumC)
         default:
