@@ -46,13 +46,12 @@ class ViewController: UIViewController {
     }
     
     func askQuestion(){
-        let randomNumA = Double.random(in: 100...999)
+        let randomNumA = Double.random(in: 10...99)
         let randomNumB = Int.random(in: 2...15)
         let randomNumC = Int.random(in: 100...999)
         let switchIndex = 6
         var numA = 0.00
         var numB = 0
-        
         
         switch switchIndex{
         case 6:
@@ -95,21 +94,18 @@ class ViewController: UIViewController {
         let answerCorrectSimplify = simplifyFrac(x0: fractionalPart)
         let numF = answerCorrectSimplify.num
         let denF = answerCorrectSimplify.den
-        
-        var questionLabel = ""
-        var answerCorrect = 0.00
+    
         let randomIndex = Int.random(in: 0...1)
         switch randomIndex{
         case 0: //00Foo of 00000000
-            questionLabel = "* \(numFWhole) \(numF)/\(denF)% of \(numB)"
+            questionLabel.text = "* \(numFWhole) \(numF)/\(denF)% of \(numB)"
             answerCorrect = (numA * Double(numB))/100
         case 1:
-            let numA2 = (numA * 1000000) + randomNumA
-            questionLabel = "* \(numA2) X \(randomNumC)"
+            let numA2 = round(((numA * 10000) + randomNumA)*1)/1
+            questionLabel.text = "* \(numA2) X \(randomNumC)"
             answerCorrect = numA2 * Double(randomNumC)
         default:
-            questionLabel = "999"
-        }
+            questionLabel.text = "999"
         }
     }
     
