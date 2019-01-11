@@ -55,19 +55,24 @@ class ViewController: UIViewController {
         
         switch switchIndex{
         case 6:
-            numA = (1/6) * 100
+            let numMultiplier = Int.random(in: 1...5)
+            numA = ((1/6) * Double(numMultiplier)) * 100
             numB = ((randomNumB * 6) * 1000) + randomNumC
         case 7:
-            numA = (1/7) * 100
+            let numMultiplier = Int.random(in: 1...6)
+            numA = ((1/7) * Double(numMultiplier)) * 100
             numB = ((randomNumB * 7) * 1000) + randomNumC
         case 8:
-            numA = (1/8) * 100
+            let numMultiplier = Int.random(in: 1...7)
+            numA = ((1/8) * Double(numMultiplier)) * 100
             numB = ((randomNumB * 8) * 1000) + randomNumC
         case 9:
-            numA = (1/9) * 100
+            let numMultiplier = Int.random(in: 1...8)
+            numA = ((1/9) * Double(numMultiplier)) * 100
             numB = ((randomNumB * 9) * 1000) + randomNumC
-        case 10:
-            numA = (1/11) * 100
+        case 11:
+            let numMultiplier = Int.random(in: 1...10)
+            numA = ((1/11) * Double(numMultiplier)) * 100
             numB = ((randomNumB * 11) * 1000) + randomNumC
         default:
             numB = 999
